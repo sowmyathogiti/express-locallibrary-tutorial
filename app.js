@@ -4,25 +4,25 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
-const dotenv = require('dotenv')
-
+let dotenv = require('dotenv')
 
 dotenv.config({ path: '.env' })
 
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-var catalogRouter = require('./routes/catalog');  //Import routes for "catalog" area of site
+let indexRouter = require('./routes/index');
+let usersRouter = require('./routes/users');
+let catalogRouter = require('./routes/catalog');  //Import routes for "catalog" area of site
 
 let app = express();
 
 // Set up mongoose connection
-const mongoose = require('mongoose');
-const dev_db_url = 'mongodb+srv://sowmya_thogiti:Welcome123@cluster0-kpmyc.azure.mongodb.net/local_library?retryWrites=true&w=majority'
-const mongoDB = process.env.MONGODB_URI || dev_db_url;
-mongoose.connect(mongoDB, { useNewUrlParser: true,useUnifiedTopology: true });
+let mongoose = require('mongoose');
+// let dev_db_url = 'mongodb+srv://myUser27:myPassword27@cluster1-orfpe.azure.mongodb.net/local_library?retryWrites=true&w=majority'
+const dev_db_url =  process.env.ATLAS_URI
+let mongoDB = process.env.MONGODB_URI || dev_db_url;
+mongoose.connect(mongoDB, { useNewUrlParser: true});
 mongoose.Promise = global.Promise;
-const db = mongoose.connection;
+let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // view engine setup
