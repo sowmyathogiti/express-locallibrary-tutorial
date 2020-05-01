@@ -23,7 +23,8 @@ app.use(helmet());
 let mongoose = require('mongoose');
 
 // Set up mongoose connection
-var dev_db_url = 'mongodb+srv://myUser27:myPassword27@cluster1-orfpe.azure.mongodb.net/local_library?retryWrites=true'
+// var dev_db_url = 'mongodb+srv://myUser27:myPassword27@cluster1-orfpe.azure.mongodb.net/local_library?retryWrites=true'
+var dev_db_url = process.env.ATLAS_URI;
 var mongoDB = process.env.MONGODB_URI || dev_db_url;
 mongoose.connect(mongoDB, { useNewUrlParser: true});
 mongoose.Promise = global.Promise;
