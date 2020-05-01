@@ -50,3 +50,23 @@ AuthorSchema.virtual('date_of_death_yyyy_mm_dd').get(function() {
 
 // Export model.
 module.exports = mongoose.model('Author', AuthorSchema);
+
+const debug = require('debug')('author');
+
+// Display Author update form on GET
+exports.author_update_get = function(req, res, next) {   
+    
+    req.sanitize('id').escape().trim();
+    Author.findById(req.params.id, function(err, author) {
+        if (err) {
+            debug('update error:' + err);
+            return next(err);
+        }
+        //On success
+        res.render('author_form', { title: 'Update Author', author: author });
+    });
+
+};
+
+
+

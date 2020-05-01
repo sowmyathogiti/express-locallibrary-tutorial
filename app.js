@@ -12,14 +12,19 @@ dotenv.config({ path: '.env' })
 let indexRouter = require('./routes/index');
 let usersRouter = require('./routes/users');
 let catalogRouter = require('./routes/catalog');  //Import routes for "catalog" area of site
+const compression = require('compression');
+const helmet = require('helmet');
 
 let app = express();
+app.use(compression()); //Compress all routes
+app.use(helmet());
 
 // Set up mongoose connection
 let mongoose = require('mongoose');
-// let dev_db_url = 'mongodb+srv://myUser27:myPassword27@cluster1-orfpe.azure.mongodb.net/local_library?retryWrites=true&w=majority'
-const dev_db_url =  process.env.ATLAS_URI
-let mongoDB = process.env.MONGODB_URI || dev_db_url;
+
+// Set up mongoose connection
+var dev_db_url = 'mongodb+srv://myUser27:myPassword27@cluster1-orfpe.azure.mongodb.net/local_library?retryWrites=true'
+var mongoDB = process.env.MONGODB_URI || dev_db_url;
 mongoose.connect(mongoDB, { useNewUrlParser: true});
 mongoose.Promise = global.Promise;
 let db = mongoose.connection;
@@ -56,4 +61,5 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
  
